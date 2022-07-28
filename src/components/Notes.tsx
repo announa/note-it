@@ -5,7 +5,7 @@ export default function Notes() {
   
   const {notes} = useNotes()
 
-  const renderNotes = notes.map((note, i) => <RenderNote key={'note-' + i} note={ note } />)
+  const renderNotes = notes.map((note, i) => <RenderNote key={'note-' + i} note={ note } index={i}/>)
   
   return (
     <>{ renderNotes }</>
