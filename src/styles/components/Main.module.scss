@@ -1,5 +1,15 @@
 @use '../mixins' as *;
+@use '../variables' as *;
 
-.main{
- @include flex(space-betwen, center, column, 5vh)
+.main {
+  @include flex(space-betwen, center, column, 5vh);
+  padding: 5vh 5vw;
+  background-color: $bg-color;
+  min-height: 100vh;
+}
+
+.add-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
 }

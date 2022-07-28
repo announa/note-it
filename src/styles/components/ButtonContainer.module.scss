@@ -1,0 +1,7 @@
+@use '../mixins' as *;
+
+.btn-container{
+ @include flex(flex-end, center, row, 5px);
+ width: 100%;
+ margin-top: 10px;
+}

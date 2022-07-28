@@ -1,5 +1,10 @@
-@use 'styles/mixins';
+@use 'styles/mixins' as *;
 @use 'styles/variables' as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
 
 body {
   margin: 0;
@@ -9,6 +14,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h2 {
+  margin-bottom: 0.5rem;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
@@ -24,6 +32,11 @@ button {
   &:hover {
     background-color: $button-color-hover;
   }
+
+  &:disabled {
+    background-color: rgba($button-color-primary, 0.5);
+    cursor: default;
+  }
 }
 
 .btn-secondary {
@@ -33,4 +46,18 @@ button {
   &:hover {
     background-color: $button-color-secondary-hover;
   }
+}
+
+.btn-round {
+  @include flex(center, center);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 3rem;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+input{
+  width: 100% !important;
+  margin: 10px 0;
 }

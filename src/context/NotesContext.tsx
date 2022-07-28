@@ -1,8 +1,9 @@
 import {createContext, ReactNode, useContext, useState, useEffect} from 'react'
+import Note from '../models/Note.class';
 
 interface notesContextType{
-  notes: string[],
-  saveNote: (newNote: string)=>void;
+  notes: Note[],
+  saveNote: (newNote: Note)=>void;
   deleteNote: (i: number)=>void;
 }
 
@@ -14,13 +15,13 @@ export function useNotes(){
 
 export function NotesProvider({children}: {children: ReactNode}) {  // how to define the type of ReactNode correctly?
 
- const[notes, setNotes] = useState<string[]>([])
+ const[notes, setNotes] = useState<Note[]>([])
 
  useEffect(() => {
   console.log(notes)
  }, [notes])
 
- function saveNote(newNote: string){
+ function saveNote(newNote: Note){
   console.log(newNote)
   const currentNotes = [...notes]
   currentNotes.push(newNote)

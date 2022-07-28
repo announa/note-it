@@ -1,6 +1,8 @@
 import {useState} from 'react'
 import AddNote from './AddNote'
+import Board from './Board'
 import styles from '../styles/components/Main.module.scss'
+import AddIcon from '../assets/img/Add'
 
 export default function Main() {
 
@@ -13,7 +15,8 @@ export default function Main() {
   return (
     <div className={styles.main}>
      {adding && <AddNote closeAddNote={toggleAddNote}/>}
-     {!adding && <button onClick={toggleAddNote}>Add note</button>}
+     {!adding && <button className={`btn-round ${styles['add-btn']}`} title='Add a note' onClick={toggleAddNote}><AddIcon /></button>}
+     <Board />
     </div>
   )
 }

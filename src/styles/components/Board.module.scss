@@ -1,0 +1,14 @@
+@use '../mixins' as *;
+
+
+.board{
+ width: 100%;
+ 
+ h2{
+  text-align: center;
+ }
+}
+
+.notes-container{
+@include flex(center, center, row, 3vw, wrap)
+}
