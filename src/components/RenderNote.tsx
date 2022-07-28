@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNotes } from '../context/NotesContext';
 import Note from '../models/Note.class';
 import styles from '../styles/components/Note.module.scss';
 import NoteEditor from './NoteEditor';
@@ -11,23 +12,22 @@ interface Props{
 export default function RenderNote(props: Props) {
 
   const { note, index } = props;
-  const [isEditing, setIsEditing] = useState(false);
+  const { openNote, openedNote, addingNote, toggleAddingNote } = useNotes()
 
-  function toggleIsEditing() {
-    console.log('toggle is editing');
-    console.log(index);
-    setIsEditing((prev) => !prev);
+  function openCurrentNote(index: number){
+    if(addingNote) toggleAddingNote();
+    openNote(index)
   }
 
   return (
     <>
-      {!isEditing && (
-        <div className={ styles['note-container'] } onClick={ toggleIsEditing }>
+      {openedNote != index && (
+        <div className={ styles['note-container'] } onClick={ () => openCurrentNote(index) }>
           <div className={ styles.title }>{ note.title }</div>
           <div className={ styles.text }>{ note.text }</div>
         </div>
       )}
-      {isEditing && <NoteEditor type={'edit'} closeNoteEditor={ toggleIsEditing } index={ index } note={ note }/>}
+      {openedNote === index && <NoteEditor type={'edit'} closeNoteEditor={ () => openNote(null) } index={ index } note={ note }/>}
     </>
   );
 }

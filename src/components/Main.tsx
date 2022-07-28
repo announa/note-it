@@ -3,22 +3,21 @@ import NoteEditor from './NoteEditor';
 import Board from './Board';
 import styles from '../styles/components/Main.module.scss';
 import AddIcon from '../assets/img/Add';
-import { NotesProvider } from '../context/NotesContext';
+import { useNotes } from '../context/NotesContext';
 
 export default function Main() {
-  const [adding, setAdding] = useState(false);
+  const { addingNote, toggleAddingNote, openNote } = useNotes()
 
   function toggleAddNote() {
-    setAdding((prev) => !prev);
+    toggleAddingNote();
+    openNote(null);
   }
 
   return (
     <div className={styles.main}>
-      <NotesProvider>
-        {adding && <NoteEditor type={'add'} closeNoteEditor={toggleAddNote} />}
+        {addingNote && <NoteEditor type={'add'} closeNoteEditor={toggleAddNote} />}
         <Board />
-      </NotesProvider>
-      {!adding && (
+      {!addingNote && (
         <button className={`btn-round ${styles['add-btn']}`} title='Add a note' onClick={toggleAddNote}>
           <AddIcon />
         </button>

@@ -1,8 +1,13 @@
 import './App.module.scss';
 import Main from './components/Main';
+import { NotesProvider } from './context/NotesContext';
 
 function App() {
-  return <Main />;
+  return (
+    <NotesProvider>
+      <Main />
+    </NotesProvider>
+  );
 }
 
 export default App;
