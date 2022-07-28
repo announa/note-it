@@ -1,0 +1,10 @@
+.add-note-container {
+  width: 40%;
+  border-radius: 10px;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+
+  textarea{
+   width: 95%;
+   resize: none;
+  }
+}

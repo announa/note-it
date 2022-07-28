@@ -1,0 +1,5 @@
+@use '../mixins' as *;
+
+.main{
+ @include flex(space-betwen, center, column, 5vh)
+}
