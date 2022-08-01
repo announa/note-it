@@ -1,17 +1,46 @@
+@use '../mixins' as *;
+@use '../variables' as *;
+
 .note-container{
- padding: 10px;
+ min-width: 250px;
+ max-width: 400px;
+ padding: 15px;
+ padding-top: 3px;
  background-color: white;
- border-radius: 5px;
+ border-radius: 10px;
  box-shadow: 1px 1px 6px rgba(0,0,0,0.3);
- cursor: pointer;
+
+ &:hover .notes-icons{
+  visibility: visible;
+ }
 }
 
 .title{
  text-align: center;
+ font-size: 1.1rem;
  font-weight: 500;
  margin-bottom: 0.5em;
 }
 
 .text{
- font-weight: 400;
+ /* font-weight: 400; */
+ text-decoration: underline;
+ text-decoration-style: dotted;
+}
+
+.added, .edited{
+ font-size: 0.8rem;
+ color: $text-grey;
+}
+
+.added{
+ margin-top: 1em;
+ padding-top: 0.5em;
+ border-top: 1px solid #acacac;
+}
+
+.notes-icons{
+ @include flex(flex-end, center);
+ width: 100%;
+ visibility: hidden;
 }

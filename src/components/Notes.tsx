@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNotes } from '../context/NotesContext';
 import RenderNote from './RenderNote';
 

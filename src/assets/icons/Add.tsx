@@ -2,10 +2,10 @@ export default function AddIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="416"
-      height="416"
+      width="100"
+      height="100"
       version="1.1"
-      viewBox="0 0 416 416"
+      viewBox="0 0 100 100"
     >
       <title>Add a note</title>
       <path

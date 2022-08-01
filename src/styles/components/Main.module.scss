@@ -3,8 +3,9 @@
 
 .main {
   @include flex(space-betwen, center, column, 5vh);
-  padding: 5vh 5vw;
+  padding: 10vh 10vw;
   background-color: $bg-color;
+  background: $bg-gradient;
   min-height: 100vh;
 }
 
@@ -12,4 +13,16 @@
   position: absolute;
   bottom: 30px;
   right: 30px;
+
+  &:hover .add-icon{
+    display: none;
+  }
+
+  &:hover .add-hover-icon{
+    display: unset;
+  }
+
+  .add-hover-icon{
+    display: none;
+  }
 }

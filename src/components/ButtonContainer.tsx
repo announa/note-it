@@ -1,15 +1,15 @@
-import Note from '../models/Note.class';
+import INote from '../interfaces/INote';
 import styles from '../styles/components/ButtonContainer.module.scss'
 
 interface Props{
- note: Note;
+ userInput: INote;
  confirm: ()=>void;
  cancel: ()=>void;
 }
 
 export default function ButtonContainer(props: Props) {
 
- const note = props.note;
+ const userInput = props.userInput;
  const confirm = props.confirm;
  const cancel = props.cancel;
 
@@ -18,7 +18,7 @@ export default function ButtonContainer(props: Props) {
       <button className='btn-secondary' onClick={cancel}>
         Cancel
       </button>
-      <button disabled={note.text===''} onClick={confirm}>
+      <button disabled={userInput.text===''} onClick={confirm}>
         Save note
       </button>
       </div>

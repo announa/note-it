@@ -5,7 +5,7 @@ export default function Board() {
 
   return (
     <div className={styles.board}>
-      <h2>Saved notes</h2>
+      <h1>Saved notes</h1>
       <div className={styles['notes-container']}>
       <Notes />
       </div>
