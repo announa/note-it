@@ -1,9 +1,10 @@
-import { createContext, ReactNode, useContext, useEffect, useRef, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import Note from '../models/Note.class';
 import INote from '../interfaces/INote';
 
 interface notesContextType {
   notes: Note[];
+  archivedNotes: Note[];
   addingNote: boolean;
   toggleAddingNote: () => void;
   addNote: (newNote: Note) => void;
@@ -16,6 +17,7 @@ interface notesContextType {
 
 const NotesContext = createContext<notesContextType>({
   notes: [],
+  archivedNotes: [],
   addingNote: false,
   toggleAddingNote: () => {},
   addNote: () => {},
@@ -109,6 +111,7 @@ export function NotesProvider({ children }: { children: ReactNode }) {
     <NotesContext.Provider
       value={{
         notes,
+        archivedNotes,
         addingNote,
         toggleAddingNote,
         addNote,

@@ -9,17 +9,20 @@
  height: 80px;
  padding: 10px 30px;
 
- img{
+ > img{
   height: 100%;
   width: auto;
+ }
 
-  &:last-child{
-   height: 80%;
-   cursor: pointer;
+ a{
+  height: 70%;
+ }
+ a img{
+  height: 100%;
+  cursor: pointer;
 
-   &:hover{
-    filter: brightness(200%) saturate(30%);
-   }
+  &:hover{
+   filter: brightness(200%) saturate(30%);
   }
  }
 }
