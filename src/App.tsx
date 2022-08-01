@@ -1,12 +1,16 @@
 import './App.module.scss';
+import Header from './components/Header';
 import Main from './components/Main';
 import { NotesProvider } from './context/NotesContext';
 
 function App() {
   return (
-    <NotesProvider>
-      <Main />
-    </NotesProvider>
+    <>
+      <Header />
+      <NotesProvider>
+        <Main />
+      </NotesProvider>
+    </>
   );
 }
 

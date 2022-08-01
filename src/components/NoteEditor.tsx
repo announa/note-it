@@ -16,7 +16,7 @@ export default function NoteEditor(props: Props) {
   const { closeNoteEditor, type, index, currentNote } = props;
   const title = type === 'add' ? 'Add a new note' : 'Edit your note';
   const confirmAction = type === 'add' ? () => saveToNotes() : () => saveEditedNote();
-  const { notes, saveNote, updateNote } = useNotes();
+  const { notes, addNote, updateNote } = useNotes();
   const textarea = useRef<HTMLTextAreaElement>(null);
   const input = useRef<HTMLInputElement>(null);
   const [userInput, setUserInput] = useState<INote>({ title: '', text: '' });
@@ -34,7 +34,7 @@ export default function NoteEditor(props: Props) {
   }
 
   function saveToNotes() {
-    saveNote(new Note(userInput));
+    addNote(new Note(userInput));
     resetInputFields();
     closeNoteEditor();
   }

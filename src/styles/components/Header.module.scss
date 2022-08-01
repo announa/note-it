@@ -1,0 +1,25 @@
+@use '../mixins' as *;
+
+ header{
+  @include flex(space-between, center);
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 80px;
+ padding: 10px 30px;
+
+ img{
+  height: 100%;
+  width: auto;
+
+  &:last-child{
+   height: 80%;
+   cursor: pointer;
+
+   &:hover{
+    filter: brightness(200%) saturate(30%);
+   }
+  }
+ }
+}

@@ -14,6 +14,10 @@ export default class Note{
  }
 
  public getFormattedDate(date: Date){
-  return date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear() +  ', ' + date.getHours() + ':' + date.getMinutes()
+  return this.format(date.getDay()) + '/' + this.format(date.getMonth()) + '/' + this.format(date.getFullYear()) +  ', ' + this.format(date.getHours()) + ':' + this.format(date.getMinutes());
+ }
+
+ private format(number: number){
+  return number < 10 ? '0' + number : number
  }
 }

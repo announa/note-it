@@ -24,13 +24,19 @@
 
 .text{
  /* font-weight: 400; */
- text-decoration: underline;
- text-decoration-style: dotted;
+/*  text-decoration: underline;
+ text-decoration-style: dotted; */
 }
 
 .added, .edited{
+ @include flex(flex-start, center, row, 10px);
  font-size: 0.8rem;
  color: $text-grey;
+
+ img{
+  width: 20px;
+  height: 20px;
+ }
 }
 
 .added{
