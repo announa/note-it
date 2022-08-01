@@ -8,16 +8,27 @@ import DeleteIcon from '../assets/icons/delete.svg';
 import RestoreIcon from '../assets/icons/arrow-up.svg';
 import AddedAtIcon from '../assets/icons/calendar-plus.png';
 import EditedAtIcon from '../assets/icons/calendar-edit.png';
-import { eventNames } from 'process';
 
 interface Props {
   note: Note;
   index: number;
+  type: string;
 }
 
 export default function RenderNote(props: Props) {
-  const { note, index } = props;
-  const { openNote, openedNote, addingNote, moveToArchivedNotes, toggleAddingNote, deleteNote } = useNotes();
+  const { note, index, type } = props;
+  const {
+    openNote,
+    openedNote,
+    addingNote,
+    moveToArchivedNotes,
+    toggleAddingNote,
+    deleteNote,
+    deleteArchivedNote,
+    restoreNote,
+  } = useNotes();
+
+  const deleteFn = type === 'Saved' ? deleteNote : deleteArchivedNote;
 
   function editNote(index: number) {
     if (addingNote) toggleAddingNote();
@@ -29,13 +40,22 @@ export default function RenderNote(props: Props) {
       {openedNote !== index && (
         <div className={styles['note-container']}>
           <div className={styles['notes-icons']}>
-            <button title='edit note' className='icon-btn' onClick={() => editNote(index)}>
-              <img src={EditIcon} alt='' />
-            </button>
-            <button title='archive note' className='icon-btn' onClick={() => moveToArchivedNotes(index)}>
-              <img src={ArchiveIcon} alt='' />
-            </button>
-            <button title='delete note' className='icon-btn' onClick={() => deleteNote(index)}>
+            {type === 'Saved' && (
+              <>
+                <button title='edit note' className='icon-btn' onClick={() => editNote(index)}>
+                  <img src={EditIcon} alt='' />
+                </button>
+                <button title='archive note' className='icon-btn' onClick={() => moveToArchivedNotes(index)}>
+                  <img src={ArchiveIcon} alt='' />
+                </button>
+              </>
+            )}
+            {type === 'Archived' && (
+              <button title='archive note' className='icon-btn' onClick={() => restoreNote(index)}>
+                <img src={RestoreIcon} alt='' />
+              </button>
+            )}
+            <button title='delete note' className='icon-btn' onClick={() => deleteFn(index)}>
               <img src={DeleteIcon} alt='' />
             </button>
           </div>

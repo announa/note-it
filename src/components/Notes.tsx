@@ -10,6 +10,7 @@ export default function Notes({type}: {type: string}) {
       key={'note-' + i}
       note={note}
       index={i}
+      type={type}
     />
   ));
 

@@ -9,9 +9,11 @@ interface notesContextType {
   toggleAddingNote: () => void;
   addNote: (newNote: Note) => void;
   deleteNote: (i: number) => void;
+  deleteArchivedNote: (i: number) => void;
   moveToArchivedNotes: (i: number) => void;
   openNote: (i: number | null) => void;
   openedNote: number | null;
+  restoreNote: (i: number) => void;
   updateNote: (userInput: INote, i: number) => void;
 }
 
@@ -22,9 +24,11 @@ const NotesContext = createContext<notesContextType>({
   toggleAddingNote: () => {},
   addNote: () => {},
   deleteNote: () => {},
+  deleteArchivedNote: () => {},
   moveToArchivedNotes: () => {},
   openNote: () => {},
   openedNote: null,
+  restoreNote: () => {},
   updateNote: () => {},
 });
 
@@ -72,22 +76,17 @@ export function NotesProvider({ children }: { children: ReactNode }) {
   }
 
   function addArchivedNote(note: Note) {
-    console.log(note)
     const currentNotes = [...archivedNotes];
     currentNotes.push(note);
     setArchivedNotes(currentNotes);
   }
 
-  function updateNote(userInput: INote, i: number) {
-    const currentNotes = [...notes];
-    currentNotes[i].title = userInput.title;
-    currentNotes[i].text = userInput.text;
-    currentNotes[i].edited = currentNotes[i].getFormattedDate(new Date());
-    setNotes(currentNotes);
+  function restoreNote(i: number){
+    addNote(archivedNotes[i]);
+    deleteArchivedNote(i)
   }
 
   function deleteNote(i: number) {
-    console.log(i)
     const currentNotes = [...notes];
     currentNotes.splice(i, 1);
     setNotes(currentNotes);
@@ -97,6 +96,14 @@ export function NotesProvider({ children }: { children: ReactNode }) {
     const currentNotes = [...archivedNotes];
     currentNotes.splice(i, 1);
     setArchivedNotes(currentNotes);
+  }
+
+  function updateNote(userInput: INote, i: number) {
+    const currentNotes = [...notes];
+    currentNotes[i].title = userInput.title;
+    currentNotes[i].text = userInput.text;
+    currentNotes[i].edited = currentNotes[i].getFormattedDate(new Date());
+    setNotes(currentNotes);
   }
 
   function toggleAddingNote() {
@@ -112,13 +119,15 @@ export function NotesProvider({ children }: { children: ReactNode }) {
       value={{
         notes,
         archivedNotes,
+        addNote,
         addingNote,
         toggleAddingNote,
-        addNote,
         deleteNote,
+        deleteArchivedNote,
         moveToArchivedNotes,
         openNote,
         openedNote,
+        restoreNote,
         updateNote,
       }}
     >
