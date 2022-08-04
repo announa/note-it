@@ -18,11 +18,17 @@ export default function Main({type}: {type: string}) {
         {addingNote && <NoteEditor type={'add'} closeNoteEditor={toggleAddNote} />}
         <Board type={type}/>
       {!addingNote && type === 'Saved' && (
+        <div className={styles['add-btn-container']}>
         <button className={`btn-round ${styles['add-btn']}`} title='Add a note' onClick={toggleAddNote}>
           {/* <AddIcon /> */}
           <img className={styles['add-icon']} src={AddIcon} alt="" />
           <img title='Add a note' className={styles['add-hover-icon']} src={AddHoverIcon} alt="" />
         </button>
+        <div className={styles['add-menu']}>
+          <button>Add a note</button>
+          <button>Add a todo list</button>
+        </div>
+        </div>
       )}
     </div>
   );

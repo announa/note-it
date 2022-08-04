@@ -9,10 +9,37 @@
   min-height: 100vh;
 }
 
-.add-btn {
-  position: absolute;
+.add-btn-container{
+  position: fixed;
   bottom: 30px;
   right: 30px;
+  display: inline-block;
+
+  .add-menu{
+    @include flex(center, flex-start, column, 0);
+    position: absolute;
+    bottom: 110%;
+    right: 0;
+    border-radius: 5px;
+    border: 1px solid rgba($text-grey, 0.3);
+    overflow: hidden;
+    
+      button{
+        background-color: white;
+        color: $text-dark;
+        text-align: left;
+        width: 100%;
+        white-space: nowrap;
+        border-radius: 0;
+
+        &:hover{
+          background-color: $button-color-secondary;
+        }
+      }
+  }
+}
+
+.add-btn {
 
   &:hover .add-icon{
     display: none;
