@@ -1,12 +1,15 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import Note from '../models/Note.class';
 import INote from '../interfaces/INote';
+import { IUserInput } from '../interfaces/IUserInput';
 
 interface notesContextType {
   notes: Note[];
   archivedNotes: Note[];
   addingNote: boolean;
+  addingTodoList: boolean;
   toggleAddingNote: () => void;
+  toggleAddingTodoList: () => void;
   addNote: (newNote: Note) => void;
   deleteNote: (i: number) => void;
   deleteArchivedNote: (i: number) => void;
@@ -14,14 +17,16 @@ interface notesContextType {
   openNote: (i: number | null) => void;
   openedNote: number | null;
   restoreNote: (i: number) => void;
-  updateNote: (userInput: INote, i: number) => void;
+  updateNote: (userInput: IUserInput, todos: string[], i: number) => void;
 }
 
 const NotesContext = createContext<notesContextType>({
   notes: [],
   archivedNotes: [],
   addingNote: false,
+  addingTodoList: false,
   toggleAddingNote: () => {},
+  toggleAddingTodoList: () => {},
   addNote: () => {},
   deleteNote: () => {},
   deleteArchivedNote: () => {},
@@ -44,6 +49,7 @@ export function NotesProvider({ children }: { children: ReactNode }) {
 
   const [openedNote, setOpenedNote] = useState<number | null>(null);
   const [addingNote, setAddingNote] = useState(false);
+  const [addingTodoList, setAddingTodoList] = useState(false);
 
   useEffect(() => {
     saveNotesToLocalStorage('notes');
@@ -98,16 +104,21 @@ export function NotesProvider({ children }: { children: ReactNode }) {
     setArchivedNotes(currentNotes);
   }
 
-  function updateNote(userInput: INote, i: number) {
+  function updateNote(userInput: IUserInput, todos: string[], i: number) {
     const currentNotes = [...notes];
     currentNotes[i].title = userInput.title;
     currentNotes[i].text = userInput.text;
+    currentNotes[i].todos = todos;
     currentNotes[i].edited = currentNotes[i].getFormattedDate(new Date());
     setNotes(currentNotes);
   }
 
   function toggleAddingNote() {
     setAddingNote((prev) => !prev);
+  }
+
+  function toggleAddingTodoList() {
+    setAddingTodoList((prev) => !prev);
   }
 
   function openNote(i: number | null) {
@@ -121,7 +132,9 @@ export function NotesProvider({ children }: { children: ReactNode }) {
         archivedNotes,
         addNote,
         addingNote,
+        addingTodoList,
         toggleAddingNote,
+        toggleAddingTodoList,
         deleteNote,
         deleteArchivedNote,
         moveToArchivedNotes,

@@ -1,8 +1,9 @@
 import INote from '../interfaces/INote';
+import { IUserInput } from '../interfaces/IUserInput';
 import styles from '../styles/components/ButtonContainer.module.scss'
 
 interface Props{
- userInput: INote;
+ userInput: IUserInput;
  confirm: ()=>void;
  cancel: ()=>void;
 }

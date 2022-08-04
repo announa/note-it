@@ -60,7 +60,8 @@ export default function RenderNote(props: Props) {
             </button>
           </div>
           <div className={styles.title}>{note.title}</div>
-          <div className={styles.text}>{note.text}</div>
+          {!!note.text && <div className={styles.text}>{note.text}</div>}
+          {note.todos.length > 0 && <div className={styles.todos}>{note.todos}</div>}
           <div className={styles.added}>
             <img src={AddedAtIcon} alt='' title='Added at' />
             {note.added.toString()}

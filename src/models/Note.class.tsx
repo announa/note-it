@@ -3,12 +3,14 @@ import INote from "../interfaces/INote";
 export default class Note{
  title: string;
  text: string;
+ todos: string[];
  added: string;
  edited?: string;
 
  constructor(obj?: INote){
   this.title = obj? obj.title : '';
   this.text = obj? obj.text : '';
+  this.todos = obj? obj.todos : [];
   this.added = obj && obj.added? obj.added : this.getFormattedDate(new Date());
   if(obj && obj.edited) this.edited = obj.edited;
  }

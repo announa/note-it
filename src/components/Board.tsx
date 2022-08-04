@@ -1,7 +1,7 @@
 import Notes from './Notes'
 import styles from '../styles/components/Board.module.scss'
 
-export default function Board({type}: {type: string}) {
+export default function Board({type}: {type: 'Saved' | 'Archived'}) {
 
   return (
     <div className={styles.board}>
