@@ -8,6 +8,7 @@ import DeleteIcon from '../assets/icons/delete.svg';
 import RestoreIcon from '../assets/icons/arrow-up.svg';
 import AddedAtIcon from '../assets/icons/calendar-plus.png';
 import EditedAtIcon from '../assets/icons/calendar-edit.png';
+import TodoList from './TodoList';
 
 interface Props {
   note: Note;
@@ -18,6 +19,7 @@ interface Props {
 export default function RenderNote(props: Props) {
   const { note, index, type } = props;
   const {
+    notes,
     openNote,
     openedNote,
     addingNote,
@@ -26,6 +28,8 @@ export default function RenderNote(props: Props) {
     deleteNote,
     deleteArchivedNote,
     restoreNote,
+    updateNote,
+    updateTodos
   } = useNotes();
 
   const deleteFn = type === 'Saved' ? deleteNote : deleteArchivedNote;
@@ -33,6 +37,18 @@ export default function RenderNote(props: Props) {
   function editNote(index: number) {
     if (addingNote) toggleAddingNote();
     openNote(index);
+  }
+
+  function toggleTodo(i: number) {
+    const currentNotes = [...notes];
+    currentNotes[index].todos[i].done = !currentNotes[index].todos[i].done;
+    updateTodos(currentNotes[index].todos, i);
+  }
+
+  function deleteTodo(i: number){
+    const currentTodos = [...notes[index].todos];
+    currentTodos.splice(i, 1)
+    updateTodos(currentTodos, index)
   }
 
   return (
@@ -61,7 +77,11 @@ export default function RenderNote(props: Props) {
           </div>
           <div className={styles.title}>{note.title}</div>
           {!!note.text && <div className={styles.text}>{note.text}</div>}
-          {note.todos.length > 0 && <div className={styles.todos}>{note.todos}</div>}
+          {!!note.todos && note.todos.length > 0 && (
+            <div className={styles.todos}>
+              <TodoList todos={note.todos} index={index} deleteTodo={deleteTodo} toggleTodo={toggleTodo} />
+            </div>
+          )}
           <div className={styles.added}>
             <img src={AddedAtIcon} alt='' title='Added at' />
             {note.added.toString()}

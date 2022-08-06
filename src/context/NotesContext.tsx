@@ -2,6 +2,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from 'react
 import Note from '../models/Note.class';
 import INote from '../interfaces/INote';
 import { IUserInput } from '../interfaces/IUserInput';
+import { ITodo } from '../interfaces/ITodo';
 
 interface notesContextType {
   notes: Note[];
@@ -17,7 +18,10 @@ interface notesContextType {
   openNote: (i: number | null) => void;
   openedNote: number | null;
   restoreNote: (i: number) => void;
-  updateNote: (userInput: IUserInput, todos: string[], i: number) => void;
+  updateNote: (userInput: IUserInput, i: number) => void;
+  updateTodos: (todos: ITodo[], i: number) => void;
+  deleteTodo: (noteIndex: number, todoIndex: number) => void;
+  toggleTodo: (noteIndex: number, todoIndex: number) => void;
 }
 
 const NotesContext = createContext<notesContextType>({
@@ -35,6 +39,9 @@ const NotesContext = createContext<notesContextType>({
   openedNote: null,
   restoreNote: () => {},
   updateNote: () => {},
+  updateTodos: () => {},
+  deleteTodo: () => {},
+  toggleTodo: () => {},
 });
 
 export function useNotes() {
@@ -76,7 +83,7 @@ export function NotesProvider({ children }: { children: ReactNode }) {
   }
 
   function moveToArchivedNotes(i: number) {
-    console.log(i)
+    console.log(i);
     addArchivedNote(notes[i]);
     deleteNote(i);
   }
@@ -87,9 +94,9 @@ export function NotesProvider({ children }: { children: ReactNode }) {
     setArchivedNotes(currentNotes);
   }
 
-  function restoreNote(i: number){
+  function restoreNote(i: number) {
     addNote(archivedNotes[i]);
-    deleteArchivedNote(i)
+    deleteArchivedNote(i);
   }
 
   function deleteNote(i: number) {
@@ -104,10 +111,16 @@ export function NotesProvider({ children }: { children: ReactNode }) {
     setArchivedNotes(currentNotes);
   }
 
-  function updateNote(userInput: IUserInput, todos: string[], i: number) {
+  function updateNote(userInput: IUserInput, i: number) {
     const currentNotes = [...notes];
     currentNotes[i].title = userInput.title;
     currentNotes[i].text = userInput.text;
+    currentNotes[i].edited = currentNotes[i].getFormattedDate(new Date());
+    setNotes(currentNotes);
+  }
+
+  function updateTodos(todos: ITodo[], i: number) {
+    const currentNotes = [...notes];
     currentNotes[i].todos = todos;
     currentNotes[i].edited = currentNotes[i].getFormattedDate(new Date());
     setNotes(currentNotes);
@@ -123,6 +136,18 @@ export function NotesProvider({ children }: { children: ReactNode }) {
 
   function openNote(i: number | null) {
     setOpenedNote(i);
+  }
+
+  function deleteTodo(noteIndex: number, TodoIndex: number) {
+    const currentNotes = [...notes];
+    currentNotes[noteIndex].todos.splice(TodoIndex, 1);
+    setNotes(currentNotes);
+  }
+
+  function toggleTodo(noteIndex: number, TodoIndex: number) {
+    const currentNotes = [...notes];
+    currentNotes[noteIndex].todos[TodoIndex].done = !currentNotes[noteIndex].todos[TodoIndex].done;
+    setNotes(currentNotes);
   }
 
   return (
@@ -142,6 +167,9 @@ export function NotesProvider({ children }: { children: ReactNode }) {
         openedNote,
         restoreNote,
         updateNote,
+        updateTodos,
+        deleteTodo,
+        toggleTodo
       }}
     >
       {children}

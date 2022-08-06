@@ -1,9 +1,10 @@
 import INote from "../interfaces/INote";
+import { ITodo } from "../interfaces/ITodo";
 
 export default class Note{
  title: string;
  text: string;
- todos: string[];
+ todos: ITodo[];
  added: string;
  edited?: string;
 
